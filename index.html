@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">
+        Click Me
+    </button>
+    <div id="content">
+
+    </div>
+    <script src="pubsub.js"></script>
+    <script>
+        const pb = new PubSub();
+        const btn = document.getElementById("btn");
+        pb.subscribe('populate_content',(data)=>{
+            const div =  document.getElementById("content");
+            const newDiv = document.createElement("div");
+            newDiv.innerText=data.data;
+            div.appendChild(newDiv);
+        });
+        btn.addEventListener("click",()=>{
+            pb.publish('populate_content',{data:'some content'});
+        })
+    </script>
+</body>
+
+
+</html>
